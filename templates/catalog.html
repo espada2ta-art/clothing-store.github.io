@@ -1,0 +1,150 @@
+```html
+{% extends 'base.html' %}
+
+{% block title %}
+Каталог — DROPWEAR
+{% endblock %}
+
+
+{% block content %}
+
+<section class="catalog-page">
+
+    <div class="container-fluid px-4">
+
+        <!-- Заголовок -->
+
+        <div class="catalog-header">
+
+            <div>
+                <p class="catalog-label">
+                    DROPWEAR STORE
+                </p>
+
+                <h1>
+                    CATALOG
+                </h1>
+            </div>
+
+            <p class="product-count">
+                {{ products|length }} товарів
+            </p>
+
+        </div>
+
+
+        <!-- Фільтри -->
+
+        <div class="catalog-filters">
+
+            <button class="filter-button active">
+                ALL
+            </button>
+
+            <button class="filter-button">
+                HOODIES
+            </button>
+
+            <button class="filter-button">
+                T-SHIRTS
+            </button>
+
+            <button class="filter-button">
+                JEANS
+            </button>
+
+            <button class="filter-button">
+                JACKETS
+            </button>
+
+        </div>
+
+
+        <!-- Товари -->
+
+        <div class="row g-4">
+
+            {% for product in products %}
+
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+
+                <div class="product-card">
+
+                    <!-- Фото -->
+
+                    <div class="product-image">
+
+                        {% if product.image %}
+
+                            <img
+                                src="{{ product.image.url }}"
+                                alt="{{ product.name }}"
+                            >
+
+                        {% else %}
+
+                            <div class="no-image">
+                                NO IMAGE
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- Інформація -->
+
+                    <div class="product-info">
+
+                        <div>
+
+                            <h5>
+                                {{ product.name }}
+                            </h5>
+
+                            <p class="product-category">
+                                {{ product.get_category_display }}
+                            </p>
+
+                        </div>
+
+                        <p class="product-price">
+                            ₴{{ product.price }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <!-- Якщо товарів немає -->
+
+            <div class="empty-catalog">
+
+                <h2>
+                    CATALOG IS EMPTY
+                </h2>
+
+                <p>
+                    Поки що в магазині немає товарів.
+                </p>
+
+                <a href="/admin/" class="btn shop-button">
+                    GO TO ADMIN
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+```
